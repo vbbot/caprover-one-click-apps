@@ -43,7 +43,7 @@ caproverOneClickApp:
     variables:
 
         # Variable for version
-        -   id: $$cap_version
+        -   id: $$cap_appversion
             label: Version
             description: |-
                 Specify the version tag to install.  
@@ -68,7 +68,7 @@ services:
     $$cap_appname:
 
         # Use official image
-        image: ghcr.io/flaresolverr/flaresolverr:$$cap_version
+        image: ghcr.io/flaresolverr/flaresolverr:$$cap_appversion
 
         # Set hostname (f.e. flaresolverr.demo.caprover.com)
         hostname: $$cap_appname.$$cap_root_domain
