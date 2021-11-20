@@ -16,29 +16,22 @@ caproverOneClickApp:
     instructions:
 
         # Displayed one the app config page, where you enter all variable values
-        start: >-
+        start: |-
             ![Sonarr Logo](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-banner.png)
-            
-            
+
             🌐 [Website](https://sonarr.tv/)
-            
             📖 [Documentation](https://wiki.servarr.com/sonarr)
-
             📁 [GitHub](https://github.com/Sonarr/Sonarr)
-
             🐳 [DockerHub](https://hub.docker.com/r/linuxserver/sonarr)
-
             👛 [Donate](https://sonarr.tv/donate)
-
 
             Sonarr is a PVR for Usenet and BitTorrent users.
             It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them.
             It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.
 
         # Displayed after deployment
-        end: >-
-            🎉🎉🎉 Successfully deployed!
-
+        end: |-
+            🎉🎉🎉 Successfully deployed!  
             Check it out at: http://$$cap_appname.$$cap_root_domain
 
     # Documentation Link
@@ -64,7 +57,7 @@ caproverOneClickApp:
             label: Data Path
             description: |-
                 Specify the location of all your TV shows and downloads.
-                > *NOTE*: It's best to use a single volume for TV shows and downloads, otherwise import will take **MUCH** longer!  
+                > *NOTE*: It's best to use a single volume for TV shows and downloads, otherwise imports will take **MUCH** longer!  
                 > If you still want two different volumes, just change it on the app config page later on.
             validRegex: /^(?:[a-zA-Z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/
 

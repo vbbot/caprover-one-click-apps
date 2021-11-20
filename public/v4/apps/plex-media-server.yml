@@ -16,32 +16,26 @@ caproverOneClickApp:
     instructions:
 
         # Displayed one the app config page, where you enter all variable values
-        start: >-
+        start: |-
             ![Plex Logo](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/plex-banner.png)
 
-
             🌐 [Website](https://www.plex.tv/)
-
             📖 [Documentation](https://support.plex.tv/articles/)
-
             📁 [GitHub](https://github.com/plexinc/pms-docker)
-            
             🐳 [DockerHub](https://hub.docker.com/r/linuxserver/plex)
-
             🎫 [Premium](https://www.plex.tv/plex-pass/)
-
 
             With the easy-to-install Plex Media Server software and your Plex apps, available on all your favorite phones, tablets, streaming devices, gaming consoles, and smart TVs, you can stream your video, music, and photo collections any time, anywhere, to any device.
 
         # Displayed after deployment
-        end: >-
-            🎉🎉🎉 Successfully deployed!
-
+        end: |-
+            🎉🎉🎉 Successfully deployed!  
             Check it out at: http://$$cap_appname.$$cap_root_domain
-            
+
             > *NOTE*: Make sure to allow all the required ports through your firewall!
             > Click [here](https://support.plex.tv/articles/201543147-what-network-ports-do-i-need-to-allow-through-my-firewall/) for a detailed description about each port.
-            > This one-click-app template only makes the container expose the `32400` port, add others on the app config page if you need them.
+            > This one-click-app template only makes the container expose the `32400` port.
+            > Add others on the app config page if you need them.
 
     # Documentation Link
     documentation: https://support.plex.tv/articles/
@@ -67,7 +61,7 @@ caproverOneClickApp:
             description: |-
                 Specify the location of all your media (movies, TV shows, music, etc.).
             validRegex: /^(?:[a-zA-Z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/
-        
+
         # Variable for claim token
         -   id: $$cap_plex_claim
             label: Plex Claim Token (OPTIONAL)
@@ -91,7 +85,7 @@ caproverOneClickApp:
             description: |-
                 Specify the User ID that the process should use.  
                 Run `id <username>` on the host system to see your UID.
-            defaultValue: 1000                
+            defaultValue: 1000
             validRegex: /^-?\d+$/
 
         # Variable for Process Group ID
@@ -142,7 +136,7 @@ services:
 
         # Define ports
         ports:
-            
+
             # This is the only required port - allows access to the Plex Media Server
             - 32400:32400
 
