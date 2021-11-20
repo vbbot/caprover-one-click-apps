@@ -17,11 +17,18 @@ caproverOneClickApp:
 
         # Displayed one the app config page, where you enter all variable values
         start: >-
-            🌐 Website: https://sonarr.tv
+            ![Sonarr Logo](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-banner.png)
+            
+            
+            🌐 [Website](https://sonarr.tv/)
+            
+            📖 [Documentation](https://wiki.servarr.com/sonarr)
 
-            📁 Repository: https://github.com/Sonarr/Sonarr
+            📁 [GitHub](https://github.com/Sonarr/Sonarr)
 
-            👛 Donate: https://sonarr.tv/donate
+            🐳 [DockerHub](https://hub.docker.com/r/linuxserver/sonarr)
+
+            👛 [Donate](https://sonarr.tv/donate)
 
 
             Sonarr is a PVR for Usenet and BitTorrent users.
@@ -32,12 +39,12 @@ caproverOneClickApp:
         end: >-
             🎉🎉🎉 Successfully deployed!
 
-            Check it out at: https://$$cap_appname.$$cap_root_domain
+            Check it out at: http://$$cap_appname.$$cap_root_domain
 
     # Documentation Link
     documentation: https://wiki.servarr.com/sonarr
 
-    # Whether this one-click-app uses the official image
+    # Whether this one-click-app uses the official image or a trusted source
     isOfficial: true
 
     # Define variables
@@ -46,35 +53,46 @@ caproverOneClickApp:
         # Variable for version
         -   id: $$cap_sonarr_version
             label: Sonarr Version
+            description: |-
+                Specify the version tag to install.  
+                Click [here](https://hub.docker.com/r/linuxserver/sonarr/tags) for a list of available tags.
             defaultValue: 3.0.6.1342-ls128
-            description: "Check out their Docker page for the valid tags: https://hub.docker.com/r/linuxserver/sonarr/tags"
-            validRegex: /^(?:(?:arm|amd)(?:64|32)(?:v\d+)?-)?(?:develop-?)?(?:version-)?(?:\d+)?(?:\.\d+\.\d+(?:\.\d+)?)?(?:-ls\d+)?$/
+            validRegex: /^(?:(?:arm|amd)(?:64|32)(?:v\d+)?-)?(?:develop-?)?(?:version-)?(?:\d+)(?:\.\d+\.\d+(?:\.\d+)?)?(?:-ls\d+)?$/
 
         # Variable for data path
         -   id: $$cap_data_path
-            label: Location of all your TV Shows and Downloads
-            description: It's best to use a single volume for downloads and TV shows. Otherwise import will take MUCH longer.
+            label: Data Path
+            description: |-
+                Specify the location of all your TV shows and downloads.
+                > *NOTE*: It's best to use a single volume for TV shows and downloads, otherwise import will take **MUCH** longer!  
+                > If you still want two different volumes, just change it on the app config page later on.
             validRegex: /^(?:[a-zA-Z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/
 
-        # Variable for timezone
+        # Variable for time zone
         -   id: $$cap_tz
-            label: Timezone
+            label: Time Zone
+            description: |-
+                Specify your system's time zone.  
+                Click [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) for a list of available time zones.
             defaultValue: Europe/Vienna
-            description: "List of available timezones: https://en.wikipedia.org/wiki/List_of_tz_database_time_zones"
             validRegex: /^\w+\/\w+$/
 
         # Variable for Process User ID
         -   id: $$cap_puid
             label: User ID
+            description: |-
+                Specify the User ID that the process should use.  
+                Run `id <username>` on the host system to see your UID.
             defaultValue: 1000
-            description: User ID that the process uses. Run `id <username>` on the host system to see your the UID.
             validRegex: /^-?\d+$/
 
         # Variable for Process Group ID
         -   id: $$cap_pgid
             label: Group ID
+            description: |-
+                Specify the Group ID that the process should use.  
+                Run `id <username>` on the host system to see your GID.
             defaultValue: 1000
-            description: Group ID that the process uses. Run `id <username>` on the host system to see your the UID.
             validRegex: /^-?\d+$/
 
 
@@ -105,7 +123,7 @@ services:
         # Define volumes
         volumes:
 
-            # Volume containing database and config
+            # Volume containing database data and config
             - $$cap_appname-config:/config
 
             # Volume containing TV shows and downloads
