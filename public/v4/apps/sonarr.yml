@@ -44,8 +44,8 @@ caproverOneClickApp:
     variables:
 
         # Variable for version
-        -   id: $$cap_sonarr_version
-            label: Sonarr Version
+        -   id: $$cap_version
+            label: Version
             description: |-
                 Specify the version tag to install.  
                 Click [here](https://hub.docker.com/r/linuxserver/sonarr/tags) for a list of available tags.
@@ -96,7 +96,7 @@ services:
     $$cap_appname:
 
         # Use image by linuxserver.io
-        image: lscr.io/linuxserver/sonarr:$$cap_sonarr_version
+        image: lscr.io/linuxserver/sonarr:$$cap_version
 
         # Set hostname (f.e. sonarr.demo.caprover.com)
         hostname: $$cap_appname.$$cap_root_domain

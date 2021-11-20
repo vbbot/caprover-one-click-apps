@@ -47,8 +47,8 @@ caproverOneClickApp:
     variables:
 
         # Variable for version
-        -   id: $$cap_plex_version
-            label: Plex Version
+        -   id: $$cap_version
+            label: Version
             description: |-
                 Specify the version tag to install.  
                 Click [here](https://hub.docker.com/r/linuxserver/plex/tags) for a list of available tags.
@@ -105,7 +105,7 @@ services:
     $$cap_appname:
 
         # Use image by linuxserver.io
-        image: lscr.io/linuxserver/plex:$$cap_plex_version
+        image: lscr.io/linuxserver/plex:$$cap_version
 
         # Set hostname (f.e. plex.demo.caprover.com)
         hostname: $$cap_appname.$$cap_root_domain
