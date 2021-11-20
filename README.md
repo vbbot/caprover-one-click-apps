@@ -1,4 +1,4 @@
-## Repo for CapRover One-Click-Apps
+# Skayo's CapRover One-Click-Apps
 
 This is my personal collection of one-click-apps I use on my [CapRover](https://caprover.com/) instance.  
 
