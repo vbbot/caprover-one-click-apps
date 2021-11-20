@@ -1,0 +1,118 @@
+# Use schema version 4
+captainVersion: 4
+
+
+# One-click-app options
+caproverOneClickApp:
+
+    # App name
+    displayName: Sonarr (Skayo)
+
+    # Description displayed on the app list
+    description: |-
+        A Smart PVR for Usenet and BitTorrent users - Automatically downloads TV Shows for you
+
+    # Define instructions
+    instructions:
+
+        # Displayed one the app config page, where you enter all variable values
+        start: >-
+            🌐 Website: https://sonarr.tv
+
+            📁 Repository: https://github.com/Sonarr/Sonarr
+
+            👛 Donate: https://sonarr.tv/donate
+
+
+            Sonarr is a PVR for Usenet and BitTorrent users.
+            It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them.
+            It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.
+
+        # Displayed after deployment
+        end: >-
+            🎉🎉🎉 Successfully deployed!
+
+            Check it out at: https://$$cap_appname.$$cap_root_domain
+
+    # Documentation Link
+    documentation: https://wiki.servarr.com/sonarr
+
+    # Whether this one-click-app uses the official image
+    isOfficial: true
+
+    # Define variables
+    variables:
+
+        # Variable for version
+        -   id: $$cap_sonarr_version
+            label: Sonarr Version
+            defaultValue: 3.0.6.1342-ls128
+            description: Check out their Docker page for the valid tags https://hub.docker.com/r/linuxserver/sonarr/tags
+            validRegex: /^(?:(?:arm|amd)(?:64|32)(?:v\d+)?-)?(?:develop-?)?(?:version-)?(?:\d+)?(?:\.\d+\.\d+(?:\.\d+)?)?(?:-ls\d+)?$/
+
+        # Variable for data path
+        -   id: $$cap_data_path
+            label: Location of all your TV shows and downloads
+            description: It's best to use a single volume for downloads and TV shows. Otherwise import will take MUCH longer.
+            validRegex: /^(?:[a-zA-Z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/
+
+        # Variable for timezone
+        -   id: $$cap_tz
+            label: Timezone
+            defaultValue: Europe/Vienna
+            description: Get yours from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+            validRegex: /^\w+\/\w+$/
+
+        # Variable for Process User ID
+        -   id: $$cap_puid
+            label: User ID
+            defaultValue: 1000
+            description: User ID that the process uses. Run `id <username>` on the host system to see your the UID.
+            validRegex: /^-?\d+$/
+
+        # Variable for Process Group ID
+        -   id: $$cap_pgid
+            label: Group ID
+            defaultValue: 1000
+            description: Group ID that the process uses. Run `id <username>` on the host system to see your the UID.
+            validRegex: /^-?\d+$/
+
+
+# Define services
+services:
+
+    # Sonarr service
+    $$cap_appname:
+
+        # Use image by linuxserver.io
+        image: lscr.io/linuxserver/sonarr:$$cap_sonarr_version
+
+        # Set hostname (f.e. sonarr.demo.caprover.com)
+        hostname: $$cap_appname.$$cap_root_domain
+
+        # Define environment variables
+        environment:
+
+            # Process User ID
+            PUID: $$cap_puid
+
+            # Process Group ID
+            PGID: $$cap_pgid
+
+            # Timezone
+            TZ: $$cap_tz
+
+        # Define volumes
+        volumes:
+
+            # Volume containing database and config
+            - $$cap_appname-config:/config
+
+            # Volume containing TV shows and downloads
+            - $$cap_data_path:/data
+
+        # CapRover's special options
+        caproverExtra:
+
+            # Sonarr uses port 8989
+            containerHttpPort: 8989
