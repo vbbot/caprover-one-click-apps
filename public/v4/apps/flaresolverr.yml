@@ -25,7 +25,7 @@ caproverOneClickApp:
             When some request arrives, it uses puppeteer with the stealth plugin to create a headless browser (Firefox).
             It opens the URL with user parameters and waits until the Cloudflare challenge is solved (or timeout).
             The HTML code and the cookies are sent back to the user, and those cookies can be used to bypass Cloudflare using other HTTP clients.
-            
+
             Very useful for [Jackett](https://github.com/Jackett/Jackett) or [Prowlarr](https://prowlarr.com/).
 
         # Displayed after deployment
@@ -78,6 +78,6 @@ services:
 
             # Timezone
             TZ: $$cap_tz
-            
+
             # Port, we set it to 80, so we don't have to specify containerHttpPort
             PORT: 80
