@@ -6,28 +6,27 @@ captainVersion: 4
 caproverOneClickApp:
 
     # App name
-    displayName: Sonarr (Skayo)
+    displayName: Prowlarr (Skayo)
 
     # Description displayed on the app list
     description: |-
-        A smart PVR for Usenet and BitTorrent users - Automatically downloads TV Shows for you
+        An indexer manager/proxy built on the popular *arr base stack that integrates seamlessly with Radarr, Sonarr and similar
 
     # Define instructions
     instructions:
 
         # Displayed one the app config page, where you enter all variable values
         start: |-
-            ![Sonarr Logo](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/sonarr-banner.png)
+            ![Prowlarr Logo](https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/prowlarr-banner.png)
 
-            🌐 [Website](https://sonarr.tv/)
-            📖 [Documentation](https://wiki.servarr.com/sonarr)
-            📁 [GitHub](https://github.com/Sonarr/Sonarr)
-            🐳 [DockerHub](https://hub.docker.com/r/linuxserver/sonarr)
-            👛 [Donate](https://sonarr.tv/donate)
+            📖 [Documentation](https://wiki.servarr.com/prowlarr)
+            📁 [GitHub](https://github.com/Prowlarr/Prowlarr)
+            🐳 [DockerHub](https://hub.docker.com/r/linuxserver/prowlarr)
+            👛 [Donate](https://github.com/sponsors/Prowlarr)
 
-            Sonarr is a PVR for Usenet and BitTorrent users.
-            It can monitor multiple RSS feeds for new episodes of your favorite shows and will grab, sort and rename them.
-            It can also be configured to automatically upgrade the quality of files already downloaded when a better quality format becomes available.
+            Prowlarr is an indexer manager/proxy built on the popular *arr base stack (.NET/React.js) to integrate with your various PVR apps.
+            Prowlarr supports management of both Torrent trackers and Usenet indexers.
+            It integrates seamlessly with Lidarr, Mylar3, Radarr, Readarr, and Sonarr offering complete management of your indexers with no per-app indexer setup required (we do it all).
 
         # Displayed after deployment
         end: |-
@@ -35,7 +34,7 @@ caproverOneClickApp:
             Check it out at: http://$$cap_appname.$$cap_root_domain
 
     # Documentation Link
-    documentation: https://wiki.servarr.com/sonarr
+    documentation: https://wiki.servarr.com/prowlarr
 
     # Whether this one-click-app uses the official image or a trusted source
     isOfficial: true
@@ -48,18 +47,9 @@ caproverOneClickApp:
             label: App Version
             description: |-
                 Specify the version tag to install.  
-                Click [here](https://hub.docker.com/r/linuxserver/sonarr/tags) for a list of available tags.
-            defaultValue: 3.0.6.1342-ls128
-            validRegex: /^(?:(?:arm|amd)(?:64|32)(?:v\d+)?-)?(?:develop-?)?(?:version-)?(?:\d+)(?:\.\d+\.\d+(?:\.\d+)?)?(?:-ls\d+)?$/
-
-        # Variable for data path
-        -   id: $$cap_data_path
-            label: Data Path
-            description: |-
-                Specify the location of all your TV shows and downloads.
-                > *NOTE*: It's best to use a single volume for TV shows and downloads, otherwise imports will take **MUCH** longer!  
-                > If you still want two different volumes, just change it on the app config page later on.
-            validRegex: /^(?:[a-zA-Z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/
+                Click [here](https://hub.docker.com/r/linuxserver/prowlarr/tags) for a list of available tags.
+            defaultValue: 1.4.1120
+            validRegex: /^(?:(?:arm|amd)(?:64|32)(?:v\d+)?-)?(?:develop-?|nightly-?)?(?:version-)?(?:\d+)(?:\.\d+\.\d+(?:\.\d+)?)?(?:-ls\d+)?$/
 
         # Variable for time zone
         -   id: $$cap_tz
@@ -92,13 +82,13 @@ caproverOneClickApp:
 # Define services
 services:
 
-    # Sonarr service
+    # Prowlarr service
     $$cap_appname:
 
         # Use image by linuxserver.io
-        image: lscr.io/linuxserver/sonarr:$$cap_appversion
+        image: lscr.io/linuxserver/prowlarr:$$cap_appversion
 
-        # Set hostname (f.e. sonarr.demo.caprover.com)
+        # Set hostname (f.e. prowlarr.demo.caprover.com)
         hostname: $$cap_appname.$$cap_root_domain
 
         # Define environment variables
@@ -119,11 +109,8 @@ services:
             # Volume containing database data and config
             - $$cap_appname-config:/config
 
-            # Volume containing TV shows and downloads
-            - $$cap_data_path:/data
-
         # CapRover's special options
         caproverExtra:
 
-            # Sonarr uses port 8989
-            containerHttpPort: 8989
+            # Prowlarr uses port 9696
+            containerHttpPort: 9696

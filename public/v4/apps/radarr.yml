@@ -45,7 +45,7 @@ caproverOneClickApp:
 
         # Variable for version
         -   id: $$cap_appversion
-            label: Version
+            label: App Version
             description: |-
                 Specify the version tag to install.  
                 Click [here](https://hub.docker.com/r/linuxserver/radarr/tags) for a list of available tags.
