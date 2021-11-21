@@ -55,11 +55,11 @@ caproverOneClickApp:
             defaultValue: 2.0.1
             validRegex: /^(?:\d+(?:\.\d+(?:\.\d+)?)?|linux)(?:-(?:arm|amd)(?:64|32)?(?:-v\d+)?(?:-[a-z0-9]+-push)?)?$/
 
-        # Variable for Photos Path
-        -   id: $$cap_photos_path
-            label: Photos Path
+        # Variable for Media Path
+        -   id: $$cap_media_path
+            label: Media Path
             description: |-
-                Specify the location of all your photos.
+                Specify the location of all your photos and videos.
             validRegex: /^(?:[a-zA-Z]:)?[\/\\]{0,2}(?:[.\/\\ ](?![.\/\\\n])|[^<>:"|?*.\/\\ \n])+$/
 
         # Variable for Mapbox Token
@@ -150,8 +150,8 @@ services:
             # Volume containing media cache
             - $$cap_appname-media-cache:/app/cache
 
-            # Volume containing photos
-            - $$cap_photos_path:/photos
+            # Volume containing photos and videos
+            - $$cap_media_path:/data/media
 
     # MariaDB service
     $$cap_appname-db:
