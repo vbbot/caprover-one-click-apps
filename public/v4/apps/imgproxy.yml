@@ -17,6 +17,8 @@ caproverOneClickApp:
 
         # Displayed one the app config page, where you enter all variable values
         start: |-
+            ![imgproxy logo](https://github.com/imgproxy/imgproxy/blob/master/docs/assets/favicon-128.png?raw=true)
+            
             🌐 [Website](https://imgproxy.net/)
             📖 [Documentation](https://docs.imgproxy.net/)
             📁 [GitHub](https://github.com/imgproxy/imgproxy)

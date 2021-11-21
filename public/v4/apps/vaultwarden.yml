@@ -17,6 +17,8 @@ caproverOneClickApp:
 
         # Displayed one the app config page, where you enter all variable values
         start: |-
+            ![Vaultwarden Logo](https://raw.githubusercontent.com/dani-garcia/vaultwarden/main/resources/vaultwarden-logo.svg)
+
             📖 [Documentation](https://github.com/dani-garcia/vaultwarden/wiki)
             📁 [GitHub](https://github.com/dani-garcia/vaultwarden)
             🐳 [DockerHub](https://hub.docker.com/r/vaultwarden/server)
