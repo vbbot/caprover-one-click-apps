@@ -159,6 +159,9 @@ services:
         # Use official image
         image: mariadb:$$cap_mariadb_appversion
 
+        # Set hostname (f.e. photoview-mariadb.demo.caprover.com)
+        hostname: $$cap_appname-mariadb.$$cap_root_domain
+
         # Define environment variables
         environment:
 
