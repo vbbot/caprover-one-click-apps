@@ -118,7 +118,7 @@ services:
         depends_on:
 
             # Start the database first, then photoview
-            - $$cap_appname-mariadb
+            - $$cap_appname-db
 
         # Set hostname (f.e. photoview.demo.caprover.com)
         hostname: $$cap_appname.$$cap_root_domain
@@ -130,7 +130,7 @@ services:
             PHOTOVIEW_DATABASE_DRIVER: mysql
 
             # Database Connection URL
-            PHOTOVIEW_MYSQL_URL: $$cap_mariadb_user:$$cap_mariadb_pass@tcp(srv-captain--$$cap_appname-mariadb)/$$cap_mariadb_db
+            PHOTOVIEW_MYSQL_URL: $$cap_mariadb_user:$$cap_mariadb_pass@tcp(srv-captain--$$cap_appname-db)/$$cap_mariadb_db
 
             # Listen to 0.0.0.0
             PHOTOVIEW_LISTEN_IP: 0.0.0.0
@@ -154,13 +154,13 @@ services:
             - $$cap_photos_path:/photos
 
     # MariaDB service
-    $$cap_appname-mariadb:
+    $$cap_appname-db:
 
         # Use official image
         image: mariadb:$$cap_mariadb_appversion
 
-        # Set hostname (f.e. photoview-mariadb.demo.caprover.com)
-        hostname: $$cap_appname-mariadb.$$cap_root_domain
+        # Set hostname (f.e. photoview-db.demo.caprover.com)
+        hostname: $$cap_appname-db.$$cap_root_domain
 
         # Define environment variables
         environment:
@@ -181,7 +181,7 @@ services:
         volumes:
 
             # Persist database data
-            - $$cap_appname-mariadb-data:/var/lib/mysql
+            - $$cap_appname-db-data:/var/lib/mysql
 
         # CapRover's special options
         caproverExtra:
