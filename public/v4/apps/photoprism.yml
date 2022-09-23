@@ -4,7 +4,6 @@ services:
         image: "photoprism/photoprism:$$app_version"
         depends_on:
             - $$cap_appname-db
-        security_opt: "-seccomp:unconfined -apparmor:unconfined"
         environment:
             PHOTOPRISM_ADMIN_PASSWORD: $$app_admin_password
             PHOTOPRISM_AUTH_MODE: password
@@ -30,9 +29,6 @@ services:
     $$cap_appname-db:
         restart: unless-stopped
         image: "mariadb:$$db_version"
-        security_opt:
-            - "seccomp:unconfined"
-            - apparmor: unconfined
         command: >-
             mysqld --innodb-buffer-pool-size=512M
             --transaction-isolation=READ-COMMITTED --character-set-server=utf8mb4
@@ -54,6 +50,8 @@ services:
         image: "mcuadros/ofelia:$$ofelia_version"
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        caproverExtra:
+            notExposeAsWebApp: "true"
 caproverOneClickApp:
     variables:
         - id: $$app_version
