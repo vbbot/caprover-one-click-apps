@@ -86,8 +86,9 @@ caproverOneClickApp:
             AI-Powered Photos App for the Decentralized Web
             More details: https://photoprism.app/
         end: >-
-            Photoprism  has been successfully deployed! Important further steps: 1.
-            Enable HTTPS on the domain. 2. Enable websocker support
+            Photoprism  has been successfully deployed! Important further steps: 
+            1. Enable HTTPS on the domain. 
+            2. Enable websocket support
     displayName: Photoprism (vbbot)
     isOfficial: true
     description: AI-Powered Photos App for the Decentralized Web
