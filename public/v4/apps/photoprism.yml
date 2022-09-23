@@ -21,6 +21,10 @@ services:
             - "$$cap_appname-originals:/photoprism/originals"
             - "$$cap_appname-storage:/photoprism/storage"
         working_dir: /photoprism
+        labels:
+            $$cap_appname-ofelia.enabled: $$ofelia_enabled
+            $$cap_appname-ofelia.job-exec.photoprism_index.schedule: "$$ofelia_index_schedule"
+            $$cap_appname-ofelia.job-exec.photoprism_index.command: "photoprism index --cleanup"
         caproverExtra:
             containerHttpPort: "2342"
     $$cap_appname-db:
@@ -45,6 +49,11 @@ services:
             MARIADB_ROOT_PASSWORD: $$db_root_password
         caproverExtra:
             notExposeAsWebApp: "true"
+    $$cap_appname-ofelia:
+        restart: unless-stopped
+        image: "mcuadros/ofelia:$$ofelia_version"
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock:ro"
 caproverOneClickApp:
     variables:
         - id: $$app_version
@@ -81,6 +90,22 @@ caproverOneClickApp:
           defaultValue: $$cap_gen_random_hex(32)
           description: Root password for the database
           validRegex: "/.{1,}/"
+        - id: $$ofelia_version
+          label: Ofelia Version
+          defaultValue: v0.3.6
+          description: >-
+              Check out their Docker page for the valid tags
+              https://hub.docker.com/r/mcuadros/ofelia
+        - id: $$ofelia_enabled
+          label: Enable scheduling for indexing files
+          defaultValue: false
+          description: >-
+              Enable scheduling for indexing files from the originals folder. Useful is the originals folder is shared by another app, like nextcloud, etc. For scheduling imports, etc, simply use the photoprism GUI.
+        - id: $$ofelia_index_schedule
+          label: Enable scheduling for indexing files in the originals folder
+          defaultValue: "@every 1h"
+          description: >-
+              Set the time frame for scheduling indexing files from the originals folder. Check out the allowed values here: https://hub.docker.com/r/mcuadros/ofelia
     instructions:
         start: |-
             AI-Powered Photos App for the Decentralized Web
